@@ -1,13 +1,13 @@
 var ballX = 400;
 var ballSpeedX = 0;
-var ballY = 400;
+var ballY = 500;
 var ballSpeedY = 5;
 const BG_COLOR = 'black';
-const BALL_COLOR = 'white';
+const BALL_COLOR = 'green';
 const BRICK_COLOR = 'green';
-const PAD_COLOR = 'white'
+const PAD_COLOR = 'green'
 const BRICK_W = 80;
-const BRICK_H = 30;
+const BRICK_H = 40;
 const BRICK_COL = 10;
 const BRICK_ROWS = 9;
 const BRICK_GAP = 2;
@@ -56,6 +56,7 @@ window.onload = function() {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
   canvasContext.font="bold 36px 'Zilla Slab";
+
   var framesPerSecond = 30;
   setInterval(updateAll, 1000 / framesPerSecond);
 
@@ -70,7 +71,7 @@ function updateAll() {
 }
 function ballReset() {
   ballX = canvas.width / 2;
-  ballY = canvas.height / 2;
+  ballY = canvas.height *.75;
 }
 
 function ballMove(){
@@ -78,15 +79,18 @@ function ballMove(){
   ballY += ballSpeedY;
   if (ballX > canvas.width && ballSpeedX > 0.0) {
     // right
-    ballSpeedX *= -1.1;
+    ballSpeedX *= -1;
+
   }
   if (ballX < 0 && ballSpeedX < 0.0) {
     //left
-    ballSpeedX *= -1.1;
+    ballSpeedX *= -1;
+
   }
   if (ballY < 0 && ballSpeedY < 0.0) {
     // top
-    ballSpeedY *= -1.1;
+    ballSpeedY *= -1;
+
   }
   if (ballY > canvas.height) {
     //bottom
@@ -94,7 +98,7 @@ function ballMove(){
     ballReset();
     brickReset();
     if (score > 0){
-      alert(''+score+" points!")
+      alert(''+score*1000+" points!")
     }
     score = 0;
   }
@@ -125,7 +129,7 @@ function ballBrickHandling(){
     if (isBrickAtColRow( ballBrickCol, ballBrickRow )) {
       brickGrid[brickIndexUnderBall] = false;
       bricksLeft--;
-      console.log(bricksLeft);
+      //console.log(bricksLeft);
 
       var prevBallX = ballX - ballSpeedX;
       var prevBallY = ballY - ballSpeedY;
@@ -177,6 +181,7 @@ function ballPaddleHandling(){
     ballSpeedX = ballDistFromPaddleCenterX * 0.3;
 
     if(bricksLeft == 0) {
+      score +=10
       brickReset();
     }//out of bricks
   }// ball center inside paddle
@@ -214,7 +219,7 @@ function drawBricks() {
 function drawAll() {
   //clear screen
   colorRect(0, 0, canvas.width, canvas.height, BG_COLOR);
-  colorCircle(ballX, ballY, 10, BALL_COLOR);
+
   //draw paddle
   colorRect(
     paddleX,
@@ -225,8 +230,8 @@ function drawAll() {
   );
   drawBricks();
   //draw ball
-
-  colorText(score, 700, 50, BRICK_COLOR);
+  colorCircle(ballX, ballY, 10, BALL_COLOR);
+  colorText(score*1000, 650, 50, BRICK_COLOR);
   //draw mouse cordinates
   /*
   var mouseBrickCol = Math.floor(mouseX / BRICK_W);
@@ -234,7 +239,9 @@ function drawAll() {
   var brickIndexUnderMouse = rowColToArrayIndex(mouseBrickCol, mouseBrickRow);
   colorText(mouseBrickCol + "," + mouseBrickRow+':'+brickIndexUnderMouse, mouseX, mouseY, "yellow"); 
   */
-}
+  }
+
+
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
   canvasContext.fillStyle = fillColor;
   canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
@@ -242,6 +249,8 @@ function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 function colorCircle(centerX, centerY, radius, fillColor) {
   canvasContext.fillStyle = fillColor;
   canvasContext.beginPath();
+  canvasContext.shadowBlur = 5;
+  canvasContext.shadowColor = "green"
   canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
   canvasContext.fill();
 }
