@@ -9,7 +9,7 @@ const PAD_COLOR = 'white'
 const BRICK_W = 80;
 const BRICK_H = 30;
 const BRICK_COL = 10;
-const BRICK_ROWS = 6;
+const BRICK_ROWS = 9;
 const BRICK_GAP = 2;
 
 var brickGrid = new Array(BRICK_COL * BRICK_ROWS);
@@ -55,7 +55,7 @@ function brickReset() {
 window.onload = function() {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
-  canvasContext.font="bold 24px arial";
+  canvasContext.font="bold 36px 'Zilla Slab";
   var framesPerSecond = 30;
   setInterval(updateAll, 1000 / framesPerSecond);
 
@@ -78,15 +78,15 @@ function ballMove(){
   ballY += ballSpeedY;
   if (ballX > canvas.width && ballSpeedX > 0.0) {
     // right
-    ballSpeedX *= -1;
+    ballSpeedX *= -1.1;
   }
   if (ballX < 0 && ballSpeedX < 0.0) {
     //left
-    ballSpeedX *= -1;
+    ballSpeedX *= -1.1;
   }
   if (ballY < 0 && ballSpeedY < 0.0) {
     // top
-    ballSpeedY *= -1;
+    ballSpeedY *= -1.1;
   }
   if (ballY > canvas.height) {
     //bottom
@@ -214,7 +214,7 @@ function drawBricks() {
 function drawAll() {
   //clear screen
   colorRect(0, 0, canvas.width, canvas.height, BG_COLOR);
-
+  colorCircle(ballX, ballY, 10, BALL_COLOR);
   //draw paddle
   colorRect(
     paddleX,
@@ -225,7 +225,7 @@ function drawAll() {
   );
   drawBricks();
   //draw ball
-  colorCircle(ballX, ballY, 10, BALL_COLOR);
+
   colorText(score, 700, 50, BRICK_COLOR);
   //draw mouse cordinates
   /*
