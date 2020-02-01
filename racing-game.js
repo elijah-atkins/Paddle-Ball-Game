@@ -14,7 +14,7 @@ const BRICK_GAP = 2;
 
 var brickGrid = new Array(BRICK_COL * BRICK_ROWS);
 var bricksLeft = 0;
-var score = 0;
+
 
 
 
@@ -94,11 +94,7 @@ function ballMove(){
     ballSpeedX = 0;
     ballReset();
     brickReset();
-    if (score > 0){
-      alert(''+score*1000+" points!")
-    }
-    score = 0;
-  }
+  
 }
 function isBrickAtColRow(col,row){
   if (
@@ -139,19 +135,16 @@ function ballBrickHandling(){
         if(isBrickAtColRow( prevBrickCol, ballBrickRow ) == false) {
           ballSpeedX *= -1;
           bothTestFailed = false;
-          score++;
         }
       }
       if(prevBrickRow != ballBrickRow){
         if(isBrickAtColRow( ballBrickCol, prevBrickRow )){
           ballSpeedY *= -1;
           bothTestFailed = false;
-          score++;
         }
         if(bothTestsFailed){//armpitcase prevents ball from going through diagnol
           ballSpeedY *= -1;
           ballSpeedX *= -1;
-          score++;
         }
       }
     } // end of brickfound
@@ -197,7 +190,6 @@ function drawAll() {
   drawBricks();
   //draw ball
   colorCircle(ballX, ballY, 10, BALL_COLOR);
-  colorText(score*1000, 650, 50, BRICK_COLOR);
   //draw mouse cordinates
   /*
   var mouseBrickCol = Math.floor(mouseX / BRICK_W);
@@ -215,8 +207,7 @@ function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 function colorCircle(centerX, centerY, radius, fillColor) {
   canvasContext.fillStyle = fillColor;
   canvasContext.beginPath();
-  canvasContext.shadowBlur = 5;
-  canvasContext.shadowColor = "green"
+
   canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
   canvasContext.fill();
 }
