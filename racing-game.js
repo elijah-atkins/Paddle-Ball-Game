@@ -5,7 +5,7 @@ var ballSpeedY = 5;
 const BG_COLOR = 'black';
 const BALL_COLOR = 'green';
 const BRICK_COLOR = 'green';
-const PAD_COLOR = 'green'
+
 const BRICK_W = 80;
 const BRICK_H = 40;
 const BRICK_COL = 10;
@@ -16,10 +16,7 @@ var brickGrid = new Array(BRICK_COL * BRICK_ROWS);
 var bricksLeft = 0;
 var score = 0;
 
-const PADDLE_WIDTH = 100;
-const PADDLE_THICKNESS = 15;
-const PADDLE_DIST_FROM_EDGE = 60;
-var paddleX = 400;
+
 
 var canvas, canvasContext;
 
@@ -32,7 +29,7 @@ function updateMousePos(evt) {
 
   mouseX = evt.clientX - rect.left - root.scrollLeft;
   mouseY = evt.clientY - rect.top - root.scrollTop;
-  paddleX = mouseX - PADDLE_WIDTH / 2;
+
 
   /* mouse cheat
   ballX = mouseX;
@@ -161,38 +158,14 @@ function ballBrickHandling(){
   }// end of valid col and row
 }//end of function ballBrickHandling
 
-function ballPaddleHandling(){
-  var paddleTopEdgeY = canvas.height - PADDLE_DIST_FROM_EDGE;
-  var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
-  var paddleLeftEdgeX = paddleX;
-  var paddleRightEdgeX = paddleLeftEdgeX + PADDLE_WIDTH;
-  if (
-    ballY > paddleTopEdgeY && //below the top of palddle
-    ballY < paddleBottomEdgeY && //above bottom of paddle
-    ballX > paddleLeftEdgeX && // Right of the left side paddel
-    ballX < paddleRightEdgeX  // Left of the right side paddle
-  ) {
-   
 
-    ballSpeedY *= -1;
-
-    var centerOfPaddleX = paddleX + PADDLE_WIDTH / 2;
-    var ballDistFromPaddleCenterX = ballX - centerOfPaddleX;
-    ballSpeedX = ballDistFromPaddleCenterX * 0.3;
-
-    if(bricksLeft == 0) {
-      score +=10
-      brickReset();
-    }//out of bricks
-  }// ball center inside paddle
-}//end of ballPaddleHandling
 
 function moveAll() {
   ballMove();
 
   ballBrickHandling();
 
-  ballPaddleHandling();
+
 }
 
 function rowColToArrayIndex(col, row) {
@@ -220,14 +193,7 @@ function drawAll() {
   //clear screen
   colorRect(0, 0, canvas.width, canvas.height, BG_COLOR);
 
-  //draw paddle
-  colorRect(
-    paddleX,
-    canvas.height - PADDLE_DIST_FROM_EDGE,
-    PADDLE_WIDTH,
-    PADDLE_THICKNESS,
-    PAD_COLOR
-  );
+  
   drawBricks();
   //draw ball
   colorCircle(ballX, ballY, 10, BALL_COLOR);
