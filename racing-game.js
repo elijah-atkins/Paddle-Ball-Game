@@ -3,6 +3,7 @@ var carPicLoaded = false;
 
 var carX = 75;
 var carY = 75;
+var carAng = 0;
 var carSpeedX = 5;
 var carSpeedY = 7;
 
@@ -86,8 +87,9 @@ function carReset() {
 }
 
 function carMove() {
-	carX += carSpeedX;
-	carY += carSpeedY;
+	//carX += carSpeedX;
+	//carY += carSpeedY;
+	carAng += 0.02;
 
 	if (carX < 0 && carSpeedX < 0.0) { //left
 		carSpeedX *= -1;
@@ -185,12 +187,18 @@ function drawAll() {
 
 	//colorCircle(carX,carY, 10, 'white'); // draw ball
 	if (carPicLoaded) {
-		canvasContext.drawImage(carPic,
-			carX - carPic.width / 2,
-			carY - carPic.height / 2)
+		drawBitmapCenteredWithRotation(carPic, carX,carY, carAng)
 	}
 }
+function drawBitmapCenteredWithRotation(useBitmap, atX, atY, withAng){
+	canvasContext.save();
+	canvasContext.translate(atX,atY);
+	canvasContext.rotate(withAng);
+	canvasContext.drawImage(useBitmap,-useBitmap.width/2,-useBitmap.height/2);
+	canvasContext.restore();
+	console.log(useBitmap.width, carPic.width)
 
+}
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
