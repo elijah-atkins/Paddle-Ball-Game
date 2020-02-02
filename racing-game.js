@@ -1,5 +1,5 @@
-var ballX = 75;
-var ballY = 75;
+var ballX =75;
+var ballY =75;
 var ballSpeedX = 5;
 var ballSpeedY = 7;
 const BALL_COLOR = 'white'
@@ -11,13 +11,13 @@ const TRACK_GAP = 2;
 const TRACK_COLS = 20;
 const TRACK_ROWS = 15;
 var trackGrid = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-                 1,1,0,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,
+                 1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,
+                 1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,
                  1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
                  1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
                  1,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,1,1,
-                 1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,
-                 1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,1,
+                 1,0,2,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,
+                 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,
                  1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,
                  1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,
                  1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -54,9 +54,9 @@ window.onload = function() {
 	setInterval(updateAll, 1000/framesPerSecond);
 
 	canvas.addEventListener('mousemove', updateMousePos);
-
+  ballReset();
 	trackReset();
-	ballReset();
+	
 }
 
 function updateAll() {
@@ -65,8 +65,16 @@ function updateAll() {
 }
 
 function ballReset() {
-	ballX = canvas.width/2;
-	ballY = canvas.height/2;
+	for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
+		for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
+			var arrayIndex = rowColToArrayIndex(eachCol, eachRow); 
+			if(trackGrid[arrayIndex] == 2) {
+				trackGrid[arrayIndex] = 0;
+				ballX = eachCol * TRACK_W + TRACK_W/2;
+				ballY = eachRow * TRACK_H + TRACK_H/2;
+			}
+		}
+	}
 }
 
 function ballMove() {
