@@ -32,6 +32,12 @@ var trackGrid =
 
 var canvas, canvasContext;
 
+const KEY_LEFT_ARROW = 37;
+const KEY_UP_ARROW = 38;
+const KEY_RIGHT_ARROW = 39;
+const KEY_DOWN_ARROW = 40;
+
+
 var mouseX = 0;
 var mouseY = 0;
 
@@ -49,10 +55,25 @@ function updateMousePos(evt) {
 	carSpeedY = -4;*/
 }
 function keyPressed(evt){
-	console.log("key pressed: "+evt.keyCode)
+	switch(evt.keyCode){
+		case KEY_LEFT_ARROW:
+			carAng -= 0.5;
+			break;
+		case KEY_RIGHT_ARROW:
+			carAng += 0.5;
+			break;
+		case KEY_UP_ARROW:
+			carSpeed += 0.5;
+			break;
+		case KEY_DOWN_ARROW:
+			carSpeed -= 0.5;
+			break;
+	
+	}
+//	console.log("key pressed: "+evt.keyCode)
 }
 function keyReleased(evt){
-	console.log("key released: "+evt.keyCode)
+//	console.log("key released: "+evt.keyCode)
 }
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -96,7 +117,7 @@ function carMove() {
 	carX += Math.cos(carAng) * carSpeed;
 	carY += Math.sin(carAng) * carSpeed;
 
-	carAng += 0.02;
+
 
 
 }
