@@ -2,26 +2,28 @@ var ballX = 75;
 var ballY = 75;
 var ballSpeedX = 5;
 var ballSpeedY = 7;
-
+const BALL_COLOR = 'white'
+const TRACK_COLOR = 'blue'
+const BG_COLOR = 'black'
 const TRACK_W = 40;
 const TRACK_H = 40;
 const TRACK_GAP = 2;
 const TRACK_COLS = 20;
 const TRACK_ROWS = 15;
 var trackGrid = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                 1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                 1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                 1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,
+                 1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,
+                 1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,
                  1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-                 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                 1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,
+                 1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,
+                 1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,
+                 1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,
+                 1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,1,
+                 1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+                 1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
                  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
 var canvas, canvasContext;
@@ -152,9 +154,9 @@ function drawTracks() {
 
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow); 
 
-			if(trackGrid[arrayIndex]) {
+			if(trackGrid[arrayIndex] == 1) {
 				colorRect(TRACK_W*eachCol,TRACK_H*eachRow,
-					TRACK_W-TRACK_GAP,TRACK_H-TRACK_GAP, 'blue');
+					TRACK_W-TRACK_GAP,TRACK_H-TRACK_GAP, TRACK_COLOR);
 			} // end of is this track here
 		} // end of for each track
 	} // end of for each row
@@ -162,9 +164,9 @@ function drawTracks() {
 } // end of drawTracks func
 
 function drawAll() {
-	colorRect(0,0, canvas.width,canvas.height, 'black'); // clear screen
+	colorRect(0,0, canvas.width,canvas.height, BG_COLOR); // clear screen
 
-	colorCircle(ballX,ballY, 10, 'white'); // draw ball
+	colorCircle(ballX,ballY, 10, BALL_COLOR); // draw ball
 
 	drawTracks();
 }
