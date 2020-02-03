@@ -6,6 +6,13 @@ var carY = 75;
 var carAng = 0;
 var carSpeed = 0;
 
+const GROUNDSPEED_DECAY_MULT = 0.96;
+const DRIVE_POWER = 0.6;
+const REVERSE_POWER = 0.5;
+const TURN_RATE = 0.05;
+const SPEED_LIMIT = 8;
+const BREAK_LIMIT = -0.1;
+
 const TRACK_COLOR = 'blue'
 const BG_COLOR = 'black'
 const TRACK_W = 40;
@@ -132,18 +139,18 @@ function carReset() {
 }
 
 function carMove() {
-	carSpeed *= .97;
-	if(keyHeld_Gas && carSpeed <10) {
-		carSpeed += 0.5;
+	carSpeed *= GROUNDSPEED_DECAY_MULT;
+	if(keyHeld_Gas && carSpeed < SPEED_LIMIT) {
+		carSpeed += DRIVE_POWER;
 	}
-	if(keyHeld_Reverse && carSpeed > 0.01) {
-		carSpeed -= 0.4;
+	if(keyHeld_Reverse && carSpeed > BREAK_LIMIT) {
+		carSpeed -= REVERSE_POWER;
 	}
 	if(keyHeld_TurnLeft) {
-		carAng -= 0.05;
+		carAng -= TURN_RATE;
 	}
 	if(keyHeld_TurnRight) {
-		carAng += 0.05;
+		carAng += TURN_RATE;
 	}
 	carX += Math.cos(carAng) * carSpeed;
 	carY += Math.sin(carAng) * carSpeed;
