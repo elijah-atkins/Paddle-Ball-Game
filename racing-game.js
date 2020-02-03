@@ -131,8 +131,9 @@ function carReset() {
 }
 
 function carMove() {
+	carSpeed *= .97;
 	if(keyHeld_Gas && carSpeed <10) {
-		carSpeed += 0.2;
+		carSpeed += 0.5;
 	}
 	if(keyHeld_Reverse && carSpeed > 0.01) {
 		carSpeed -= 0.4;
@@ -171,7 +172,7 @@ function carTrackHandling() {
 
 		if (isTrackAtColRow(carTrackCol, carTrackRow)) {
 
-			carSpeed *= -1;
+			carSpeed *= -.5;
 
 		} // end of track found
 	} // end of valid col and row
