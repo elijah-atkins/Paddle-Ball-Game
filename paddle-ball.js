@@ -30,7 +30,9 @@ function updateMousePos(evt) {
   var rect = canvas.getBoundingClientRect();
   var root = document.documentElement;
 
-  mouseX = evt.clientX - rect.left - root.scrollLeft;
+  console.log(rect.left, root.scrollLeft, rect.top, root.scrollTop)
+
+	mouseX = evt.clientX - rect.left - root.scrollLeft;
   mouseY = evt.clientY - rect.top - root.scrollTop;
   paddleX = mouseX - PADDLE_WIDTH / 2;
 
@@ -56,12 +58,15 @@ window.onload = function() {
   canvas = document.getElementById("gameCanvas");
   canvasContext = canvas.getContext("2d");
   canvasContext.font="bold 36px 'Zilla Slab";
+  //window.innerWidth;
+  //window.innerHeight;
+  
 
   var framesPerSecond = 30;
   setInterval(updateAll, 1000 / framesPerSecond);
 
   canvas.addEventListener("mousemove", updateMousePos);
-
+  paddleX = canvas.width/2;
   brickReset();
 };
 function updateAll() {
@@ -98,7 +103,7 @@ function ballMove(){
     ballReset();
     brickReset();
     if (score > 0){
-      alert(''+score*1000+" points!")
+      alert('Good game! '+score*1000+" points!")
     }
     score = 0;
   }
