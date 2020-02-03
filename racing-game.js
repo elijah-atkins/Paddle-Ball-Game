@@ -4,7 +4,7 @@ var carPicLoaded = false;
 var carX = 75;
 var carY = 75;
 var carAng = 0;
-var carSpeed = 2;
+var carSpeed = 0;
 
 const TRACK_COLOR = 'blue'
 const BG_COLOR = 'black'
@@ -37,6 +37,10 @@ const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
+var keyHeld_Gas = false;
+var keyHeld_Reverse = false;
+var keyHeld_TurnLeft = false;
+var keyHeld_TurnRight = false;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -57,22 +61,35 @@ function updateMousePos(evt) {
 function keyPressed(evt){
 	switch(evt.keyCode){
 		case KEY_LEFT_ARROW:
-			carAng -= 0.5;
+			keyHeld_TurnLeft = true;
 			break;
 		case KEY_RIGHT_ARROW:
-			carAng += 0.5;
+			keyHeld_TurnRight = true;
 			break;
 		case KEY_UP_ARROW:
-			carSpeed += 0.5;
+			keyHeld_Gas = true;
 			break;
 		case KEY_DOWN_ARROW:
-			carSpeed -= 0.5;
+			keyHeld_Reverse = true;
 			break;
-	
 	}
 //	console.log("key pressed: "+evt.keyCode)
 }
 function keyReleased(evt){
+	switch(evt.keyCode){
+		case KEY_LEFT_ARROW:
+			keyHeld_TurnLeft = false;
+			break;
+		case KEY_RIGHT_ARROW:
+			keyHeld_TurnRight = false;
+			break;
+		case KEY_UP_ARROW:
+			keyHeld_Gas = false;
+			break;
+		case KEY_DOWN_ARROW:
+			keyHeld_Reverse = false;
+			break;
+	}
 //	console.log("key released: "+evt.keyCode)
 }
 window.onload = function () {
@@ -114,6 +131,18 @@ function carReset() {
 }
 
 function carMove() {
+	if(keyHeld_Gas && carSpeed <10) {
+		carSpeed += 0.2;
+	}
+	if(keyHeld_Reverse && carSpeed > 0.01) {
+		carSpeed -= 0.4;
+	}
+	if(keyHeld_TurnLeft) {
+		carAng -= 0.05;
+	}
+	if(keyHeld_TurnRight) {
+		carAng += 0.05;
+	}
 	carX += Math.cos(carAng) * carSpeed;
 	carY += Math.sin(carAng) * carSpeed;
 
