@@ -1,6 +1,3 @@
-var carPic = document.createElement("img");
-var carPicLoaded = false;
-
 var carX = 75;
 var carY = 75;
 var carAng = 0;
@@ -12,13 +9,6 @@ const REVERSE_POWER = 0.6;
 const TURN_RATE = .01;
 const SPEED_LIMIT = 8;
 const BREAK_LIMIT = -2;
-
-function carImageLoad(){
-    carPic.onload = function () {
-		carPicLoaded = true;
-	}
-	carPic.src = "./img/player1car.png";
-}
 
 function carReset() {
 	for (var eachRow = 0; eachRow < TRACK_ROWS; eachRow++) {
