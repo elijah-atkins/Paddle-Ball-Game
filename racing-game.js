@@ -172,6 +172,8 @@ function carTrackHandling() {
 		carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
 
 		if (isTrackAtColRow(carTrackCol, carTrackRow)) {
+			carX -= Math.cos(carAng)* carSpeed;
+			carY -= Math.sin(carAng)* carSpeed;
 
 			carSpeed *= -.5;
 
