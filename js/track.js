@@ -27,10 +27,10 @@ const TRACK_ROAD = 0;
 const TRACK_WALL = 1;
 const TRACK_PLAYERSTART = 2;
 
-function loadTrackImages(){
+function trackLoadImages(){
     roadPic.src ="./img/road-tile.png";
     wallPic.src ="./img/wall-tile.png";
-    
+
 }
 
 function isWallAtColRow(col, row) {
@@ -73,10 +73,14 @@ function drawTracks() {
 
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 
-			if (trackGrid[arrayIndex] == TRACK_WALL) {
-				colorRect(TRACK_W * eachCol, TRACK_H * eachRow,
-					TRACK_W - TRACK_GAP, TRACK_H - TRACK_GAP, TRACK_COLOR);
-			} // end of is this track here
+
+			if (trackGrid[arrayIndex] == TRACK_ROAD) {
+
+                canvasContext.drawImage(roadPic,TRACK_W * eachCol, TRACK_H * eachRow);
+			} else if (trackGrid[arrayIndex] == TRACK_WALL) {
+
+                canvasContext.drawImage(wallPic,TRACK_W * eachCol, TRACK_H * eachRow);
+			} 
 		} // end of for each track
 	} // end of for each row
 

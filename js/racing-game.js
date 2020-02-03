@@ -1,5 +1,3 @@
-
-
 const TRACK_COLOR = 'blue'
 const BG_COLOR = 'black'
 
@@ -15,7 +13,8 @@ window.onload = function () {
 
 	setupInput();
 
-	this.carImageLoad();
+	carImageLoad();
+	trackLoadImages();
 
 	carReset();
 }
