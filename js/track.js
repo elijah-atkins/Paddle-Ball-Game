@@ -1,21 +1,19 @@
-
-
 const TRACK_W = 40;
 const TRACK_H = 40;
 const TRACK_GAP = 2;
 const TRACK_COLS = 20;
 const TRACK_ROWS = 15;
 var trackGrid = 
-   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
-	1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+   [4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4,
+	4, 4, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 4, 4, 4, 4, 4,
+	4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 4, 4, 1,
+	4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1,
 	1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 	1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1,
-	1, 0, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,
-	1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+	1, 0, 2, 0, 1, 1, 1, 4, 4, 4, 4, 4, 1, 1, 1, 0, 0, 0, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 1, 1, 1, 0, 0, 0, 0, 1,
+	1, 0, 3, 0, 0, 0, 5, 4, 4, 4, 4, 5, 0, 0, 0, 0, 0, 0, 0, 1,
+	1, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 	1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
@@ -25,14 +23,17 @@ var trackGrid =
 const TRACK_ROAD = 0;
 const TRACK_WALL = 1;
 const TRACK_PLAYERSTART = 2;
+const TRACK_GOAL = 3;
+const TRACK_GRASS = 4;
+const TRACK_EDGE = 5;
 
 
 
-function isWallAtColRow(col, row) {
+function isObsticalAtColRow(col, row) {
 	if (col >= 0 && col < TRACK_COLS &&
 		row >= 0 && row < TRACK_ROWS) {
 		var trackIndexUnderCoord = rowColToArrayIndex(col, row);
-		return trackGrid[trackIndexUnderCoord];
+		return (trackGrid[trackIndexUnderCoord] != TRACK_ROAD);
 	} else {
 		return false;
 	}
@@ -46,7 +47,7 @@ function carTrackHandling() {
 	if (carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
 		carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
 
-		if (isWallAtColRow(carTrackCol, carTrackRow)) {
+		if (isObsticalAtColRow(carTrackCol, carTrackRow)) {
 			carX -= Math.cos(carAng)* carSpeed;
 			carY -= Math.sin(carAng)* carSpeed;
 
@@ -67,15 +68,27 @@ function drawTracks() {
 		for (var eachCol = 0; eachCol < TRACK_COLS; eachCol++) {
 
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+			var tileKindHere = trackGrid[arrayIndex];
+			var useImg;
+			switch(tileKindHere){
+				case TRACK_ROAD:
+					useImg = roadPic;
+					break;
+				case TRACK_WALL:
+					useImg = wallPic;
+					break;
+				case TRACK_GOAL:
+					useImg = goalPic;
+					break;
+				case TRACK_GRASS:
+					useImg = grassPic;
+					break;
+				case TRACK_EDGE:
+					useImg = edgePic;
+					break;
+			}
 
-
-			if (trackGrid[arrayIndex] == TRACK_ROAD) {
-
-                canvasContext.drawImage(roadPic,TRACK_W * eachCol, TRACK_H * eachRow);
-			} else if (trackGrid[arrayIndex] == TRACK_WALL) {
-
-                canvasContext.drawImage(wallPic,TRACK_W * eachCol, TRACK_H * eachRow);
-			} 
+			canvasContext.drawImage(useImg,TRACK_W * eachCol, TRACK_H * eachRow);
 		} // end of for each track
 	} // end of for each row
 
