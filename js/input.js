@@ -3,11 +3,6 @@ const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
-var keyHeld_Gas = false;
-var keyHeld_Reverse = false;
-var keyHeld_TurnLeft = false;
-var keyHeld_TurnRight = false;
-
 var mouseX = 0;
 var mouseY = 0;
 
@@ -16,6 +11,9 @@ function setupInput(){
 
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
+	blueCar.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW,KEY_LEFT_ARROW)
+	redCar.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW,KEY_LEFT_ARROW)
+
 }
 
 function updateMousePos(evt) {
@@ -26,37 +24,45 @@ function updateMousePos(evt) {
     mouseY = evt.clientY - rect.top - root.scrollTop;
     
 }
-function keyPressed(evt){
-	switch(evt.keyCode){
-		case KEY_LEFT_ARROW:
-			keyHeld_TurnLeft = true;
-			break;
-		case KEY_RIGHT_ARROW:
-			keyHeld_TurnRight = true;
-			break;
-		case KEY_UP_ARROW:
-			keyHeld_Gas = true;
-			break;
-		case KEY_DOWN_ARROW:
-			keyHeld_Reverse = true;
-			break;
+
+// function keySet(keyEvent, whichCar, setTo){
+// 	switch(keyEvent.keyCode){
+// 		case whichCar.controlKeyLeft:
+// 			whichCar.keyHeld_TurnLeft = setTo;
+// 			break;
+// 		case whichCar.controlKeyRight:
+// 			whichCar.keyHeld_TurnRight = setTo;
+// 			break;
+// 		case whichCar.controlKeyUp:
+// 			whichCar.keyHeld_Gas = setTo;
+// 			break;
+// 		case whichCar.controlKeyDown:
+// 			whichCar.keyHeld_Reverse = setTo;
+// 			break;
+// }
+function keySet(keyEvent, whichCar, setTo) {
+	if(keyEvent.keyCode == whichCar.controlKeyLeft) {
+		whichCar.keyHeld_TurnLeft = setTo;
 	}
-//	console.log("key pressed: "+evt.keyCode)
+	if(keyEvent.keyCode == whichCar.controlKeyRight) {
+		whichCar.keyHeld_TurnRight = setTo;
+	}
+	if(keyEvent.keyCode == whichCar.controlKeyUp) {
+		whichCar.keyHeld_Gas = setTo;
+	}
+	if(keyEvent.keyCode == whichCar.controlKeyDown) {
+		whichCar.keyHeld_Reverse = setTo;
+	}
+}
+function keyPressed(evt){
+	keySet(evt, blueCar,true);
+	keySet(evt, redCar,true);
+
+	console.log("key pressed: "+evt.keyCode)
 }
 function keyReleased(evt){
-	switch(evt.keyCode){
-		case KEY_LEFT_ARROW:
-			keyHeld_TurnLeft = false;
-			break;
-		case KEY_RIGHT_ARROW:
-			keyHeld_TurnRight = false;
-			break;
-		case KEY_UP_ARROW:
-			keyHeld_Gas = false;
-			break;
-		case KEY_DOWN_ARROW:
-			keyHeld_Reverse = false;
-			break;
-	}
+	keySet(evt,blueCar,false);
+	keySet(evt,redCar,false);
+
 //	console.log("key released: "+evt.keyCode)
 }
