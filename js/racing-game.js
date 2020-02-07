@@ -4,6 +4,7 @@ const BG_COLOR = 'black'
 var canvas, canvasContext;
 
 var blueCar = new carClass();
+var redCar = new carClass();
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -20,7 +21,8 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000 / framesPerSecond);
 
 	setupInput();
-	blueCar.reset();
+	blueCar.reset(carPic);
+	redCar.reset(otherCarPic);
 }
 
 function updateAll() {
@@ -30,11 +32,12 @@ function updateAll() {
 
 function moveAll() {
 	blueCar.move();
-	carTrackHandling(blueCar);
+	redCar.move();
 }
 
 function drawAll() {
 
 	drawTracks();
 	blueCar.draw();
+	redCar.draw();
 }

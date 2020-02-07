@@ -12,8 +12,10 @@ function carClass(){
 	this.y = 75;
 	this.ang = 0;
 	this.speed = 0;
+	this.myCarPic; //Which car picture to use
 
-	this.reset = function() {
+	this.reset = function(whichImage) {
+		this.myCarPic = whichImage;
 		for (var eachRow = 0; eachRow < TRACK_ROWS; eachRow++) {
 			for (var eachCol = 0; eachCol < TRACK_COLS; eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -22,6 +24,7 @@ function carClass(){
 					this.ang = -Math.PI/2;
 					this.x = eachCol * TRACK_W + TRACK_W / 2;
 					this.y = eachRow * TRACK_H + TRACK_H / 2;
+					return;
 				}// end of player start if
 			}//end of col for
 		}//end of row for
@@ -53,9 +56,11 @@ function carClass(){
 		}
 		this.x += Math.cos(this.ang) * this.speed;
 		this.y += Math.sin(this.ang) * this.speed;
+
+		carTrackHandling(this);
 	}
 
 	this.draw = function() {
-		drawBitmapCenteredWithRotation(carPic, this.x,this.y, this.ang)
+		drawBitmapCenteredWithRotation(this.myCarPic, this.x,this.y, this.ang)
 	}
 }
