@@ -55,19 +55,19 @@ function isObsticalAtColRow(col, row) {
 	}
 }
 
-function carTrackHandling() {
-	var carTrackCol = Math.floor(carX / TRACK_W);
-	var carTrackRow = Math.floor(carY / TRACK_H);
+function carTrackHandling(whichCar) {
+	var carTrackCol = Math.floor(whichCar.x / TRACK_W);
+	var carTrackRow = Math.floor(whichCar.y / TRACK_H);
 	var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
 
 	if (carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
 		carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
 
 		if (isObsticalAtColRow(carTrackCol, carTrackRow)) {
-			carX -= Math.cos(carAng)* carSpeed;
-			carY -= Math.sin(carAng)* carSpeed;
+			whichCar.x -= Math.cos(whichCar.ang)* whichCar.speed;
+			whichCar.y -= Math.sin(whichCar.ang)* whichCar.speed;
 
-			carSpeed *= -.5;
+			whichCar.speed *= -.5;
 
 		} // end of track found
 	} // end of valid col and row
@@ -80,15 +80,22 @@ function rowColToArrayIndex(col, row) {
 
 function drawTracks() {
 
-	for (var eachRow = 0; eachRow < TRACK_ROWS; eachRow++) {
-		for (var eachCol = 0; eachCol < TRACK_COLS; eachCol++) {
+	var arrayIndex = 0;
+	var drawTileX = 0;
+	var drawTileY = 0;
+	for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
+		for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
 
-			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+			var arrayIndex = rowColToArrayIndex(eachCol, eachRow); 
 			var tileKindHere = trackGrid[arrayIndex];
 			var useImg = trackPics[tileKindHere];
 
-			canvasContext.drawImage(useImg,TRACK_W * eachCol, TRACK_H * eachRow);
-		} // end of for each track
+			canvasContext.drawImage(useImg,drawTileX,drawTileY);
+			drawTileX += TRACK_W;
+			arrayIndex++;
+		} // end of for each col
+		drawTileY += TRACK_H;
+		drawTileX = 0;
 	} // end of for each row
 
 } // end of drawTracks func
