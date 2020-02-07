@@ -45,7 +45,7 @@ q:before, q:after {
 }
 
 .gameDiv {
-    padding: 3rem;
+    padding: 3vh;
     display: flex;
     justify-content: center;
 }
