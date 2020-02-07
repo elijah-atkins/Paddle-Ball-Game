@@ -4,10 +4,10 @@ var carAng = 0;
 var carSpeed = 0;
 
 const GROUNDSPEED_DECAY_MULT = 0.92;
-const DRIVE_POWER = 0.8;
+const DRIVE_POWER = 0.7;
 const REVERSE_POWER = 0.6;
-const TURN_RATE = .1;
-const SPEED_LIMIT = 8;
+const TURN_RATE = .13;
+const SPEED_LIMIT = 9;
 const BREAK_LIMIT = -2;
 const MIN_SPEED_TO_TURN = 2;
 
