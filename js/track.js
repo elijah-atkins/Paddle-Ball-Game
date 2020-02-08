@@ -21,13 +21,13 @@ const TRACK_ROWS = 15;
 
 var trackGrid =
 	[4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4,
-		4, 4, 1, 1, 1, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1, 4, 4, 4, 4, 4,
-		4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 4, 4, 4,
-		4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 4,
-		1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4,
+		4, 4, 1, 1, 1, 5, 1, 1, 1, 0, 0, 0, 0, 1, 1, 4, 4, 4, 4, 4,
+		4, 1, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 1, 1, 4, 4, 4,
+		4, 5, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 4,
+		1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4,
 		1, 0, 0, 0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1,
-		1, 2, 2, 0, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 0, 0, 0, 1, 1,
-		1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 1,
+		1, 2, 2, 0, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
+		1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 5, 5, 0, 0, 0, 0, 0, 1,
 		1, 0, 3, 0, 0, 0, 5, 4, 4, 4, 4, 5, 0, 0, 0, 0, 0, 0, 0, 1,
 		1, 0, 0, 0, 0, 0, 0, 5, 1, 1, 5, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 1, 4,
@@ -42,6 +42,7 @@ const TRACK_PLAYERSTART = 2;
 const TRACK_GOAL = 3;
 const TRACK_GRASS = 4;
 const TRACK_EDGE = 5;
+const TRACK_BOOST = 6;
 
 
 
@@ -63,7 +64,10 @@ function carTrackHandling(whichCar) {
 	if (carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
 		carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
 		var tileHere = returnTileTypeAtColRow(carTrackCol, carTrackRow);
-		if (tileHere == TRACK_GOAL) {
+		if (tileHere == TRACK_BOOST) {
+			whichCar.speed *= 1.5;
+		}
+		else if (tileHere == TRACK_GRASS) {
 			whichCar.speed = 0;
 		}
 		else if (tileHere != TRACK_ROAD) {
