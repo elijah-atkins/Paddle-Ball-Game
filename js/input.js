@@ -16,8 +16,8 @@ function setupInput(){
 
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
-	blueCar.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW,KEY_LEFT_ARROW)
-	redCar.setupInput(KEY_W, KEY_D, KEY_S,KEY_A)
+	redCar.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW,KEY_LEFT_ARROW)
+	blueCar.setupInput(KEY_W, KEY_D, KEY_S,KEY_A);
 
 }
 

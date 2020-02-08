@@ -45,10 +45,16 @@ q:before, q:after {
 }
 
 .gameDiv {
-    padding: 3vh;
-    display: flex;
+	padding: 3vh;
+	display: flex;
+
     justify-content: center;
 }
+.control {
+	display: flex;
+	justify-content: center;
+}
+
 canvas {
     border-radius: 80px;
 }
