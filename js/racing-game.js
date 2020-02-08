@@ -16,14 +16,19 @@ window.onload = function () {
 	loadImages();
 }
 function imageLoadingDoneSoStartGame() {
-
 	var framesPerSecond = 30;
 	setInterval(updateAll, 1000 / framesPerSecond);
 
 	setupInput();
-	blueCar.reset(carPic);
-	redCar.reset(otherCarPic);
+
+	loadLevel(testTrack);
 }
+function loadLevel(whichLevel){
+	trackGrid = whichLevel.slice();
+	blueCar.reset(carPic, "Blue Steel");
+	redCar.reset(otherCarPic, "Red Lightning");
+}
+
 
 function updateAll() {
 	moveAll();

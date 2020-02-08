@@ -12,6 +12,7 @@ function carClass(){
 	this.y = 75;
 	this.ang = 0;
 	this.speed = 0;
+	this.name = "Untitled Car";
 	this.myCarPic; //Which car picture to use
 
 	this.keyHeld_Gas = false;
@@ -32,7 +33,8 @@ function carClass(){
 	}
 
 
-	this.reset = function(whichImage) {
+	this.reset = function(whichImage, carName) {
+		this.name = carName;
 		this.myCarPic = whichImage;
 		
 		for (var eachRow = 0; eachRow < TRACK_ROWS; eachRow++) {
