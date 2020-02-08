@@ -29,7 +29,8 @@ function loadImages(){
         {trackType: TRACK_GOAL, theFile: "finish-tile.png"},
         {trackType: TRACK_GRASS, theFile: "grass-tile.png"},
         {trackType: TRACK_EDGE, theFile: "end-tile.png"},
-        {trackType: TRACK_BOOST, theFile: "speed-tile.png"}
+        {trackType: TRACK_BOOST, theFile: "speed-tile.png"},
+        {trackType: TRACK_MUD, theFile: "mud-tile.png"}
         ];
 
     picsToLoad = imageList.length;
