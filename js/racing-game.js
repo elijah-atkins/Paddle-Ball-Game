@@ -21,7 +21,7 @@ function imageLoadingDoneSoStartGame() {
 
 	setupInput();
 
-	loadLevel(testTrack);
+	loadLevel(levelOne);
 }
 function loadLevel(whichLevel){
 	trackGrid = whichLevel.slice();
