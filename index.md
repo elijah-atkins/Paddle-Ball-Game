@@ -13,7 +13,7 @@
   <h1>HTML5 JavaScript Games by Elijah Atkins</h1>
     <ul>
       <li><a href="paddle-ball.html">Paddle Ball</a></li>
-      <li><a href="racing-game.html"></a>Racing Game</li>
+      <li><a href="racing-game.html">Racing Game</a></li>
     </ul>
         <p>projects from  "How to Program Games: Tile Classics in JS for HTML5 Canvas" Udemy course</p>
   </body>
