@@ -56,5 +56,5 @@ q:before, q:after {
 }
 
 canvas {
-    border-radius: 80px;
+    border-radius: 5%;
 }
