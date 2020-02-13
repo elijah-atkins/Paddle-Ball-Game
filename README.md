@@ -5,5 +5,6 @@ Chris DeLeon Udemy course How to Program Games: Tile Classics in JS for HTML5 Ca
 https://www.udemy.com/course/how-to-program-games/
 
 To Do:
- - [ ] Create Html page to contain game.
- - [ ] Use css to style html.
+ - [x] Create Html page to contain game.
+ - [x] Use css to style html.
+ - [x] Added racing game project
